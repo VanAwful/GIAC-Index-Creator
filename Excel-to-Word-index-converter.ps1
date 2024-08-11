@@ -102,9 +102,16 @@ try {
         1.27cm = 0.5 inch
         0.635 = 0.25 inch
     #>
+    # Set the Multiple Pages parameter to Mirror Margins. This assumes double sided printing.
+    $doc.PageSetup.MultiplePages = [Microsoft.Office.Interop.Word.WdMultiplePages]::wdMirrorMargins
+    
+    # Set the document to two columns.
     $doc.PageSetup.TextColumns.SetCount(2)
-    $doc.PageSetup.LeftMargin = $word.CentimetersToPoints(2.54)
-    $doc.PageSetup.RightMargin = $word.CentimetersToPoints(1.27)
+    
+    # Set margins for mirrored pages.
+    # LeftMargin and RightMargin are changed to InsideMargin and OutMargin for double sided prinint.
+    $doc.PageSetup.InsideMargin = $word.CentimetersToPoints(2.54)  # Inside margin (binding side)
+    $doc.PageSetup.OutsideMargin = $word.CentimetersToPoints(1.27) # Outside margin
     $doc.PageSetup.TopMargin = $word.CentimetersToPoints(0.635)
     $doc.PageSetup.BottomMargin = $word.CentimetersToPoints(0.635)
 
