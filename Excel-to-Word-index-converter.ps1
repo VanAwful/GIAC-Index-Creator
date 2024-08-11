@@ -110,8 +110,8 @@ try {
     
     # Set margins for mirrored pages.
     # LeftMargin and RightMargin are changed to InsideMargin and OutMargin for double sided prinint.
-    $doc.PageSetup.InsideMargin = $word.CentimetersToPoints(2.54)  # Inside margin (binding side)
-    $doc.PageSetup.OutsideMargin = $word.CentimetersToPoints(1.27) # Outside margin
+    $doc.PageSetup.LeftMargin = $word.CentimetersToPoints(2.54)  # Inside margin (binding side)
+    $doc.PageSetup.RightMargin = $word.CentimetersToPoints(1.27) # Outside margin
     $doc.PageSetup.TopMargin = $word.CentimetersToPoints(0.635)
     $doc.PageSetup.BottomMargin = $word.CentimetersToPoints(0.635)
 
