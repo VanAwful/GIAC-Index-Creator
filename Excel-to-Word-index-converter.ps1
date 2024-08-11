@@ -103,7 +103,7 @@ try {
         0.635 = 0.25 inch
     #>
     # Set the Multiple Pages parameter to Mirror Margins. This assumes double sided printing.
-    $doc.PageSetup.MultiplePages = [Microsoft.Office.Interop.Word.WdMultiplePages]::wdMirrorMargins
+    $doc.PageSetup.MultiplePages = $true
     
     # Set the document to two columns.
     $doc.PageSetup.TextColumns.SetCount(2)
