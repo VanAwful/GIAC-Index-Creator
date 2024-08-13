@@ -43,7 +43,7 @@ Then run the powershell script.
 
 The script will format the information and output it into a Word document similar to this:
    
-&nbsp;&nbsp;&nbsp;&nbsp;<b>GIAC</b> [b1/p5] Global Information Assurance Certification
+&nbsp;&nbsp;&nbsp;&nbsp;<b>GIAC</b> [<i>b1</i>/<i>p5</i>] Global Information Assurance Certification
 
 The Topic will be bold and the book/page will be in italics. The description will follow and wrap as needed.
 A blank line will be inserted before the next topic.
