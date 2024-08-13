@@ -137,8 +137,8 @@ try {
             # Collapse the range to the end of the current selection.
             $range.Collapse([Microsoft.Office.Interop.Word.WdCollapseDirection]::wdCollapseEnd)
 
-            # Insert 20 blank lines for insertion of the text BLANK near center of document.
-            # Adjust '$i -lt 20' to increase or decrease the number of lines to insert.
+            # Insert 15 blank lines for insertion of the text BLANK near center of document.
+            # Adjust '$i -lt 15' to increase or decrease the number of lines to insert.
             for ($i = 0; $i -lt 15; $i++) {
                 $range.InsertParagraphAfter()
                 $range.Collapse([Microsoft.Office.Interop.Word.WdCollapseDirection]::wdCollapseEnd)
