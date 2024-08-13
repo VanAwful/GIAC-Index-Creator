@@ -2,17 +2,19 @@
  Created 07-2024 by James VanOeffelen, GICSP, GCWN, GLSC, GPYC, GAWN
 
  The work presented here was inspired by Voltaire, an on-line index application created by 
- Matthew Toussain. It was created as tool to help students convert their spreadsheet style
- indexs for the GIAC exam into a more condensed and easy to read index.
+ Matthew Toussain. It was created as tool to help students build a compact, easy to nav, index.
+ It would allow import of an existing index created in Excel. The nicely formatted index it
+ creates makes it less time consuming to find answers when taking a GIAC exam.
  https://training.opensecurity.com/
 
  This script was created to provide an offline method to generate an index from a spreadsheet. At
- the same time it allows students the flexibility to learn the powershell coding and modify it to
- suite their preferences.
+ the same time it allows students the flexibility modify it to suite their preferences. Those
+ new to PowerShell can see some of the flexibility the .net language provides.
  
  Requirements:
     This script was designed on Windows for Windows. It does require MS Word be installed and 
-    currently only reads in MS Excel files (xlsx).
+    currently only reads in MS Excel files (xlsx). May remove the need for MS Word and expand
+    to input more than Excel in a future version.
 
  The scipt will read data from an MS Excel spreadsheet and export it to a Microsoft Word
  document in a two column index format. The only external component that is required is the 
@@ -26,7 +28,7 @@
     - Four columns are used.
     - First column is the Topic. This is the word or words that the entire index will be sorted on.
     - Second column is the Description. This is useful to provide brief information about the
-      topic. For example, a definition. You as much or as little in the description as you want. Just
+      topic. For example, a definition. Put as much or as little in the description as you want. Just
       note that too much information may slow down your search for the answer.
     - Third column is Page number it is found on.
     - Fourth column is the book number it is found in. 
@@ -38,7 +40,7 @@
      -----------------------------------------------------
 
 When you are ready to create the printed index, sort the excel spreadsheet A-Z on the first column.
-Then run the powershell script.
+Save it, then run the powershell script.
 
  The script will format the information and output it into a Word document similar to this:
      GIAC [b1/p5] Global Information
@@ -47,7 +49,7 @@ Then run the powershell script.
  The Topic will be bold and the book/page will be in italics. The description will follow and wrap as needed.
  A blank line will be inserted before the next topic.
 
-*** Versioning ***
+*** Versioning (1.2.2 is was the last offline edit before moving to GitHub ***
 1.2.2: Provided vertical and horitzonal alignment of BLANK text on blank page. Added text format and more instructions.
 1.2.1: Corrected issue with cursor insertion point moving to the start of the document during BLANK insertion.
 1.2.0: Added blank page insertion to make each section end on an even page. Helps with section dividers when printed.
