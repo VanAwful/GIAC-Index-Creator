@@ -49,13 +49,6 @@ Save it, then run the powershell script.
  The Topic will be bold and the book/page will be in italics. The description will follow and wrap as needed.
  A blank line will be inserted before the next topic.
 
-*** Versioning (1.2.2 is was the last offline edit before moving to GitHub ***
-1.2.2: Provided vertical and horitzonal alignment of BLANK text on blank page. Added text format and more instructions.
-1.2.1: Corrected issue with cursor insertion point moving to the start of the document during BLANK insertion.
-1.2.0: Added blank page insertion to make each section end on an even page. Helps with section dividers when printed.
-1.1.0: Added margin control for new word doc. Set Topic and book/page font styles.
-1.0.0: Initial release with alphabetically sorted index topics in two columns. 
-
 #>
 
 # Required modules.
