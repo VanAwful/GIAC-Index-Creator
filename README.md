@@ -48,3 +48,6 @@ The script will format the information and output it into a Word document simila
 The Topic will be bold and the book/page will be in italics. The description will follow and wrap as needed.
 A blank line will be inserted before the next topic.
 
+2024-08-21: Added a new script file, GIAC-Index-Converter.ps1. This builds on the Excel-to-Word including
+  support added for CSV as input file.
+
