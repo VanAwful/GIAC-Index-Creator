@@ -229,10 +229,14 @@ try {
     # --- PSWriteWord Section ---
     $doc = New-WordDocument -FilePath $outputPath
 
+    # Set the section to two columns
+    Set-WordSection -WordDocument $doc -Columns 2
+
     $previousFirstChar = ''
     $rowCount = 0   # temp counter for limiting rows
+
     foreach ($row in $sortedData) {
-        if ($rowCount -ge 50) { break }   # temp: only process first 50 rows
+        if ($rowCount -ge 50) { break }
         $rowArray = $row.PSObject.Properties.Value
         $topic = $rowArray[0].TrimStart()
         $description = $rowArray[1]
@@ -240,19 +244,32 @@ try {
         $page = $rowArray[2]
         $book = $rowArray[3]
         $firstChar = $topic.Substring(0, 1).ToUpper()
+        if ($firstChar -notmatch '^[A-Z]$') {
+            $firstChar = '#'
+        }
 
         if ($previousFirstChar -ne $firstChar) {
             if ($previousFirstChar -ne '') {
                 Add-WordPageBreak -WordDocument $doc
             }
-            Add-WordText -WordDocument $doc -Text $firstChar -Bold $true -FontSize 24
+            Add-WordText -WordDocument $doc -Text $firstChar -Bold $true -FontSize 24 -FontFamily 'Times New Roman'
             $previousFirstChar = $firstChar
         }
 
-        $entry = "$topic [bk $book/pg$page] $description"
-        Add-WordText -WordDocument $doc -Text $entry
+        # Compose the entry as an array of strings
+        $bkpg = " [bk $book/pg$page] "
+        $entryParts = @($topic, $bkpg, $description)
 
-        $rowCount++   # increment temp counter
+        # Apply formatting arrays: Bold for topic, Italic for bkpg, normal for description
+        Add-WordText -WordDocument $doc `
+            -Text $entryParts `
+            -Bold $true,$false,$false `
+            -Italic $false,$true,$false `
+            -FontFamily 'Times New Roman','Times New Roman','Times New Roman' `
+            -FontSize 10,10,10 `
+            -SpacingAfter 8
+
+        $rowCount++
     }
 
     Save-WordDocument -WordDocument $doc
