@@ -230,13 +230,19 @@ try {
     $doc = New-WordDocument -FilePath $outputPath
 
     # Set the section to two columns
-    Set-WordSection -WordDocument $doc -Columns 2
+    # Found PSWriteWord does not support this. Leaving it here for future incase
+    # PSWordWrite is ever updated or another module is from its ashes and includes it.
+    #Set-WordSection -WordDocument $doc -Columns 2
 
     $previousFirstChar = ''
     $rowCount = 0   # temp counter for limiting rows
 
     foreach ($row in $sortedData) {
+
+        # Break after a set number of entries. This is used to speed up testing.
+        # Remove or comment out for production.
         if ($rowCount -ge 50) { break }
+
         $rowArray = $row.PSObject.Properties.Value
         $topic = $rowArray[0].TrimStart()
         $description = $rowArray[1]
