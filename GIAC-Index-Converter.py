@@ -119,6 +119,7 @@ def format_data_by_first_column(data):
     return data.sort_values(by=data.columns[0], kind='stable')
 
 def main():
+    print("Starting Main Loop")
     try:
         user_input = show_form()
         if not user_input:
@@ -149,14 +150,38 @@ def main():
         else:
             raise Exception("Unsupported input format.")
 
-        data = format_data_by_first_column(data)
+        # Trim leading spaces for all cells
+        data = data.applymap(lambda x: str(x).lstrip() if pd.notna(x) else x)
 
+        # Ensure columns 0 and 1 are always strings
+        data[data.columns[0]] = data[data.columns[0]].astype(str)
+        data[data.columns[1]] = data[data.columns[1]].astype(str)
+
+        # If column 1 (description) is empty or just whitespace or NaN, set to "-"
+        data[data.columns[1]] = data[data.columns[1]].replace(r'^\s*$', '-', regex=True)
+        data[data.columns[1]] = data[data.columns[1]].fillna('-')
+        data[data.columns[1]] = data[data.columns[1]].astype(str)
+        data[data.columns[1]] = data[data.columns[1]].replace('nan', '-')
+
+        # Sort the data by the first column.
+        # 20250604: Issue with pandas sorting this data at this time.
+        # Commenting out for now. Will need to pre-sort the data prior to import for now.
+        #data = format_data_by_first_column(data)
+
+        # Create a new word document and set the margins.
         doc = Document()
         section = doc.sections[0]
         section.left_margin = Cm(margins['Left'])
         section.right_margin = Cm(margins['Right'])
         section.top_margin = Cm(margins['Top'])
         section.bottom_margin = Cm(margins['Bottom'])
+
+        # Set mirror margins if pgMar exists.
+        # 20250604: Not curently working. Need to set margin mirror manually in word doc after creation.
+        sectPr = section._sectPr
+        pgMar = sectPr.find(qn('w:pgMar'))
+        if pgMar is not None:
+            pgMar.set(qn('w:type'), 'mirrorMargin')
 
         # Set two columns robustly
         cols = section._sectPr.find(qn('w:cols'))
@@ -170,9 +195,7 @@ def main():
         current_page = 1  # Start on page 1
 
         for _, row in data.iterrows():
-            if row_count >= 250:
-                break
-
+            
             topic = str(row.iloc[0]).lstrip()
             description = str(row.iloc[1]) if pd.notna(row.iloc[1]) else " "
             page = str(row.iloc[2]) if pd.notna(row.iloc[2]) else ""
@@ -187,7 +210,9 @@ def main():
                     current_page += 1
                     # If new section would start on even page, insert a blank page
                     if current_page % 2 == 0:
-                        # Add 'BLANK' to the blank page
+                        # Add empty paragraphs to move "BLANK" down the page
+                        for _ in range(10):  # Adjust the range for more/less vertical space
+                            doc.add_paragraph()
                         blank_para = doc.add_paragraph()
                         blank_run = blank_para.add_run("BLANK")
                         blank_run.bold = True
