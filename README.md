@@ -14,11 +14,10 @@ coding and modify it to suite their preferences.
 # Requirements:
   This script was designed on Windows for Windows. 
   - Modules: All scripts require the ImportExcel module. This can be installed from the PS Gallery.
-  - Excel-to-Word
-      - Requires MS Word to be installed. Only imports Excel.
-  - Both GIAC scripts can import MS Excel and CSV files.
+  - Excel-to-Word.ps1
+      - Requires MS Word to be installed.
   - GIAC-Index-Converter.ps1 
-      - Requires MS Word be installed. 
+      - Requires MS Word be installed.
   - GIAC-Index-Converter_winps.ps1 
       - Will only work with Windows PowerShell 5.1. It will not work with
         PowerShell Core. However, it does not require MS Word to be installed. 
