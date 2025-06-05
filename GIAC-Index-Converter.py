@@ -167,10 +167,9 @@ def main():
 
         previous_first_char = ''
         row_count = 0
+        current_page = 1  # Start on page 1
 
         for _, row in data.iterrows():
-            
-            # Set a break point for faster testing. Remove or comment out for production use.
             if row_count >= 250:
                 break
 
@@ -185,6 +184,18 @@ def main():
             if previous_first_char != first_char:
                 if previous_first_char != '':
                     doc.add_page_break()
+                    current_page += 1
+                    # If new section would start on even page, insert a blank page
+                    if current_page % 2 == 0:
+                        # Add 'BLANK' to the blank page
+                        blank_para = doc.add_paragraph()
+                        blank_run = blank_para.add_run("BLANK")
+                        blank_run.bold = True
+                        blank_run.font.size = Pt(24)
+                        blank_run.font.name = 'Times New Roman'
+                        blank_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        doc.add_page_break()
+                        current_page += 1
                 p = doc.add_paragraph()
                 run = p.add_run(first_char)
                 run.bold = True
